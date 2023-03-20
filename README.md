@@ -39,7 +39,7 @@ Regra 10 de myers
 
 ## Nomeclatura de teste de Unidades
 
-** Exemplo de nomeclatura de teste: **
+**Exemplo de nomeclatura de teste**
 
 - ObjetosEmteste_MetodoComportamentoEmTeste_ComportamentoEsperado
 - Pedido_AdicionarPedidoItem_DeveIncrementarUnidadesSeltemJaExistente

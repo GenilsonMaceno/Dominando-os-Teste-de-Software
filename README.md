@@ -20,15 +20,14 @@ Regra 10 de myers
 - [XUnit](https://xunit.net/)
 
 
-## installation
+## Instalações necessárias
 
-````
+
 ```
 - install-package xunit
 - install-package unit.runner.visualstudio
-
 ```
-````
+
 
 # Padrões e Nomeclaturas
 

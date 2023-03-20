@@ -40,10 +40,10 @@ Regra 10 de myers
 
 **Exemplo de nomeclatura de teste**
 
-- ObjetosEmteste_MetodoComportamentoEmTeste_ComportamentoEsperado
-- Pedido_AdicionarPedidoItem_DeveIncrementarUnidadesSeltemJaExistente
-- Estoque_RetirarItem_DeveEnviarEmailSeAbaixoDe10Unidades
+**1. ObjetosEmteste_MetodoComportamentoEmTeste_ComportamentoEsperado**
+   - Pedido_AdicionarPedidoItem_DeveIncrementarUnidadesSeltemJaExistente
+   - Estoque_RetirarItem_DeveEnviarEmailSeAbaixoDe10Unidades
 
-- MetodoEmTeste_EstadoEmTeste_ComportamentoEsperado
-- AdicionarPedidoItem_ItemExistenteCaarrinho_DeveIncrementarUnidadesDoItem
-- RetirarEstoque_EstoqueAbaixoDe10Unidades_DeveEnviarEmailDeAviso
+**2. MetodoEmTeste_EstadoEmTeste_ComportamentoEsperado**
+   - AdicionarPedidoItem_ItemExistenteCaarrinho_DeveIncrementarUnidadesDoItem
+   - RetirarEstoque_EstoqueAbaixoDe10Unidades_DeveEnviarEmailDeAviso

@@ -1,37 +1,45 @@
-# Dominando-os-Teste-de-Software
+# Dominando os Teste de Software
 
 
 Regra 10 de myers
 -> Grafico para ter mais agumentos sobre testes
 
-# Tipos de testes mais comuns
+## Tipos de testes mais comuns
 
 - Teste de unidades
 - Teste de integração
 - Teste de automatização
 - Teste de carga
 
-# Teste de unidade
+## Teste de unidade
 
 - Frameworks para teste de unidadades
 
 - MsTest
 - Nunit
-- XUnit
+- [XUnit](https://xunit.net/)
 
-# installation
 
+## installation
+
+````
+```
 - install-package xunit
 - install-package unit.runner.visualstudio
 
-## Padrões e Nomeclaturas
+```
+````
+
+# Padrões e Nomeclaturas
 
 - Arrange: Gerar objetos, instancias para atuação.
 - Act: Para fazer a chamada do método.
 - Assert: Validar o resultados gerados através do método é valido.
 
 
-# Nomeclatura de teste de Unidades
+## Nomeclatura de teste de Unidades
+
+** Exemplo de nomeclatura de teste: **
 
 - ObjetosEmteste_MetodoComportamentoEmTeste_ComportamentoEsperado
 - Pedido_AdicionarPedidoItem_DeveIncrementarUnidadesSeltemJaExistente

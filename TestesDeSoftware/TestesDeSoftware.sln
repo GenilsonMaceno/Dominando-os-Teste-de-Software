@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Testes de Unidades", "01 - Testes de Unidades", "{BFBC98A7-8C66-4352-9AC4-DC0D0D247D0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.1 - Testes Basicos", "1.1 - Testes Basicos", "{8DC29468-5015-4F1C-8ED1-5C9B7D722542}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8DC29468-5015-4F1C-8ED1-5C9B7D722542} = {BFBC98A7-8C66-4352-9AC4-DC0D0D247D0D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {813D654E-F217-4F76-A930-160EBA16A077}
+	EndGlobalSection
+EndGlobal

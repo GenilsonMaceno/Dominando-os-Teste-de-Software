@@ -42,3 +42,17 @@
 2. MetodoEmTeste_EstadoEmTeste_ComportamentoEsperado
    - AdicionarPedidoItem_ItemExistenteCaarrinho_DeveIncrementarUnidadesDoItem
    - RetirarEstoque_EstoqueAbaixoDe10Unidades_DeveEnviarEmailDeAviso
+   
+# Importância do Mock
+
+São os objetos criados para testar o comportamentos de outros objetos.
+
+### Framework MOQ
+
+- Realiza Mock com facilidade
+- Compatível com visual studio
+- Utilizado pelo o time de desenvolvimento do .NET Core e ASP.NET
+
+```md
+PM> Install-Package Moq
+```

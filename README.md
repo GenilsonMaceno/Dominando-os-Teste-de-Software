@@ -20,7 +20,7 @@
 
 ## Instalações necessárias
 
-```text
+```md
 - install-package xunit
 - install-package unit.runner.visualstudio
 ```

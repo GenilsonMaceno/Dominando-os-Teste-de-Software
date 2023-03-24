@@ -90,7 +90,9 @@ namespace Demo.Tests
 
 **Importante:**
 
-[^note]: *[Fact]:* Realiza testes únicos 
+[^note]: 
+    *[Fact]:* Realiza testes únicos 
 
-[^note]: *[Theory]:* Realiza uma sequencia de testes
+[^note]: 
+    *[Theory]:* Realiza uma sequencia de testes
 

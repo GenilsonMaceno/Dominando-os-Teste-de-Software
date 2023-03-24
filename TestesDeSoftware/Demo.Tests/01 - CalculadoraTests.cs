@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 namespace Demo.Tests
 {
@@ -12,7 +7,7 @@ namespace Demo.Tests
         [Fact]
         public void Calculadora_Somar_RetornarValorSoma()
         {
-            //Arrange
+            // Arrange
             var calculadora = new Calculadora();
 
             // Act
@@ -25,12 +20,13 @@ namespace Demo.Tests
         [Theory]
         [InlineData(1,1,2)]
         [InlineData(2, 2, 4)]
-        [InlineData(4, 4, 8)]
-        [InlineData(8, 8, 16)]
+        [InlineData(4, 2, 6)]
+        [InlineData(7, 3, 10)]
+        [InlineData(6, 6, 12)]
         [InlineData(9, 9, 18)]
         public void Calculadora_Somar_RetornarValoresSomaCorretos(double v1, double v2, double total)
         {
-            //Arrange
+            // Arrange
             var calculadora = new Calculadora();
 
             // Act

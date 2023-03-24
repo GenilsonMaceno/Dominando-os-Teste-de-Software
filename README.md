@@ -42,7 +42,7 @@
 2. MetodoEmTeste_EstadoEmTeste_ComportamentoEsperado
    - AdicionarPedidoItem_ItemExistenteCaarrinho_DeveIncrementarUnidadesDoItem
    - RetirarEstoque_EstoqueAbaixoDe10Unidades_DeveEnviarEmailDeAviso
-   
+
 ## Importância do Mock
 
 São os objetos criados para testar o comportamentos de outros objetos.
@@ -100,12 +100,58 @@ namespace Demo.Tests
 }
 ```
 
-[^note]: **Equal** compara o valor do **resultado** com o valor esperado. Em caso de erro informa na tela o valor retornado em resultado
+> [!NOTE]
+> **Equal** compara o valor do **resultado** com o valor esperado. Em caso de erro informa na tela o valor retornado em resultado
 
 **Importante:**
 
 > [!NOTE]
-> *[Fact]:* Realiza testes únicos 
+> *[Fact]:* Realiza testes únicos
 
 > [!NOTE]
 > *[Theory]:* Realiza uma sequencia de testes
+
+### Asserções
+
+```dotnetcli
+public class AssertingObjectTypesTests
+    {
+        [Fact]
+        public void FuncionarioFactory_Criar_DeveRetornarTipoFuncionario()
+        {
+            // Arrange & Act
+            var funcionario = FuncionarioFactory.Criar("Eduardo", 10000);
+
+            // Assert
+            Assert.IsType<Funcionario>(funcionario);
+        }
+        
+        [Fact]
+        public void FuncionarioFactory_Criar_DeveRetornarTipoDerivadoPessoa()
+        {
+            // Arrange & Act
+            var funcionario = FuncionarioFactory.Criar("Eduardo", 10000);
+
+            // Assert
+            Assert.IsAssignableFrom<Pessoa>(funcionario);
+        }
+    }
+```
+
+- **Assert.IsType<Funcionario>(funcionario):** Válida se o tipo **funcionario** é da class **Funcionario**
+- **Assert.IsAssignableFrom<Pessoa>(funcionario):** Válida se o tipo **funcionario** herda da classe **Pessoa**
+
+```dotnetcli
+[Fact]
+        public void Funcionario_Habilidades_NaoDevePossuirHabilidadesVazias()
+        {
+            // Arrange & Act
+            var funcionario = FuncionarioFactory.Criar("Eduardo", 10000);
+
+            // Assert
+            Assert.All(funcionario.Habilidades, habilidade => Assert.False(string.IsNullOrWhiteSpace(habilidade)));
+        }
+```
+
+- **Assert.All: Válida todo item da coleção, portanto na lógica usada, está verificar se é nullo ou contem espaço,
+- caso não, usa outro **Assert** para validar se a operação retorna o valor falso.

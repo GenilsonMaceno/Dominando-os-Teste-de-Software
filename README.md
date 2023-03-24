@@ -56,3 +56,41 @@ São os objetos criados para testar o comportamentos de outros objetos.
 ```md
 PM> Install-Package Moq
 ```
+
+### O Básico sobre testes de unidade
+
+- É necessário o pacote **xunit** e o **xunit.runner.visualstudio** para reconhecer os teste no VS
+
+    A Importância de usar a função **Equal**:
+
+
+```dotnetcli
+namespace Demo.Tests
+{
+    public class CalculadoraTests
+    {
+        [Fact]
+        public void Calculadora_Somar_RetornarValorSoma()
+        {
+            //Arrange
+            var calculadora = new Calculadora();
+
+            // Act
+            var resultado = calculadora.Somar(2, 2);
+
+            // Assert
+            Assert.Equal(4, resultado);
+        }
+    }
+}
+```
+
+[^note]: **Equal** compara o valor do **resultado** com o valor esperado. Em caso de erro informa na tela o valor retornado em resultado.
+
+
+**Importante:**
+
+[^note]: *[Fact]:* Realiza testes únicos 
+
+[^note]: *[Theory]:* Realiza uma sequencia de testes
+

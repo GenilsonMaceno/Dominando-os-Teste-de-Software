@@ -90,5 +90,6 @@ namespace Demo.Tests
 
 > [!NOTE]
 > *[Fact]:* Realiza testes únicos 
-> *[Theory]:* Realiza uma sequencia de testes
 
+> [!NOTE]
+> *[Theory]:* Realiza uma sequencia de testes

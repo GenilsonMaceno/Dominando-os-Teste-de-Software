@@ -153,5 +153,4 @@ public class AssertingObjectTypesTests
         }
 ```
 
-- **Assert.All:** Válida todo item da coleção, portanto na lógica usada, está verificando se os valores da coleção é nullo ou contem espaço,
-- atravês do outro **Assert** que válida a operação esperando o retorno falso.
+- **Assert.All:** Válida todo item da coleção, portanto na lógica usada, está verificando se os valores da coleção é nullo ou contem espaço,atravês do outro **Assert** que válida a operação esperando o retorno falso.

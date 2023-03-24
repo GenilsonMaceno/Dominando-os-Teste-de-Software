@@ -63,7 +63,6 @@ PM> Install-Package Moq
 
     A Importância de usar a função **Equal**:
 
-
 ```dotnetcli
 namespace Demo.Tests
 {
@@ -85,14 +84,11 @@ namespace Demo.Tests
 }
 ```
 
-[^note]: **Equal** compara o valor do **resultado** com o valor esperado. Em caso de erro informa na tela o valor retornado em resultado.
-
+[^note]: **Equal** compara o valor do **resultado** com o valor esperado. Em caso de erro informa na tela o valor retornado em resultado
 
 **Importante:**
 
-[^note]: 
-    *[Fact]:* Realiza testes únicos 
-
-[^note]: 
-    *[Theory]:* Realiza uma sequencia de testes
+> [!NOTE]
+> *[Fact]:* Realiza testes únicos 
+> *[Theory]:* Realiza uma sequencia de testes
 

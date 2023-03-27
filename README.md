@@ -214,3 +214,111 @@ Veja como fica na imagem:
 utilizei outro meio de ficar mais identificavel, exemplo:
 
 :::image type="content" source="Fact.png" alt-text="Uso do Fact para organizar melhor a forma de visualizacao do teste atraves do método":::
+
+### Fixtures
+
+É um meio de **compartilhar** a mesma instancia entre outras classes, ou seja reutiliza-la para demais classes de testes. Sem necessáriamente recriar a instância a cada execução de testes, posso criar apenas uma vez e reutilizar, como no exemplo abaixo. É implementado uma **ICollectionFixture**  com a minha classe **ClienteTestsFixture** e criado **ClienteCollection** herdando da interface.
+
+
+```dotnetcli
+    [CollectionDefinition(nameof(ClienteCollection))]
+    public class ClienteCollection : ICollectionFixture<ClienteTestsFixture>
+    {}
+
+    public class ClienteTestsFixture : IDisposable
+    {
+        public Cliente GerarClienteValido()
+        {
+            var cliente = new Cliente(
+                Guid.NewGuid(),
+                "Eduardo",
+                "Pires",
+                DateTime.Now.AddYears(-30),
+                "edu@edu.com",
+                true,
+                DateTime.Now);
+
+            return cliente;
+        }
+
+        public Cliente GerarClienteInValido()
+        {
+            var cliente = new Cliente(
+                Guid.NewGuid(),
+                "",
+                "",
+                DateTime.Now,
+                "edu2edu.com",
+                true,
+                DateTime.Now);
+
+            return cliente;
+        }
+
+        public void Dispose()
+        {
+        }
+    }
+```
+
+Depois eu apenas implemento com a injeção de idependencia nos meus outros testes que iram reutilizar a classe que será testada, como no exemplo da **ClienteTesteValido:**
+
+```dotnetcli
+    [Collection(nameof(ClienteCollection))] // lembrar de sempre referencia que é uma collection fixture
+    public class ClienteTesteValido
+    {
+        private readonly ClienteTestsFixture _clienteTestsFixture;
+
+        public ClienteTesteValido(ClienteTestsFixture clienteTestsFixture)
+        {
+            _clienteTestsFixture = clienteTestsFixture;
+        }
+        
+
+        [Fact(DisplayName = "Novo Cliente Válido")]
+        [Trait("Categoria", "Cliente Fixture Testes")]
+        public void Cliente_NovoCliente_DeveEstarValido()
+        {
+            // Arrange
+            var cliente = _clienteTestsFixture.GerarClienteValido();
+
+            // Act
+            var result = cliente.EhValido();
+
+            // Assert 
+            Assert.True(result);
+            Assert.Equal(0, cliente.ValidationResult.Errors.Count);
+        }
+    }
+```
+
+Class: **ClienteTesteInvalido**
+
+    
+```dotnetcli
+[Collection(nameof(ClienteCollection))]
+    public class ClienteTesteInvalido
+    {
+        private readonly ClienteTestsFixture _clienteTestsFixture;
+
+        public ClienteTesteInvalido(ClienteTestsFixture clienteTestsFixture)
+        {
+            _clienteTestsFixture = clienteTestsFixture;
+        }
+
+        [Fact(DisplayName = "Novo Cliente Inválido")]
+        [Trait("Categoria", "Cliente Fixture Testes")]
+        public void Cliente_NovoCliente_DeveEstarInvalido()
+        {
+            // Arrange
+            var cliente = _clienteTestsFixture.GerarClienteInValido();
+
+            // Act
+            var result = cliente.EhValido();
+
+            // Assert 
+            Assert.False(result);
+            Assert.NotEqual(0, cliente.ValidationResult.Errors.Count);
+        }
+    }
+```

@@ -154,3 +154,63 @@ public class AssertingObjectTypesTests
 ```
 
 - **Assert.All:** Válida todo item da coleção, portanto na lógica usada, está verificando se os valores da coleção é nullo ou contem espaço,atravês do outro **Assert** que válida a operação esperando o retorno falso.
+
+### Trait
+
+ Com **trait** eu posso "categorizar" e renomear o nome do teste, exemplo de código:
+
+```dotnetcli
+        [Fact(DisplayName = "Novo Cliente Válido")]
+        [Trait("Categoria","Cliente Trait Testes")] // renomeado o teste de "Cliente_NovoCliente_DeveEstarValido" para "Categoria [Cliente Trait Testes]"
+        public void Cliente_NovoCliente_DeveEstarValido()
+        {
+            // Arrange
+            var cliente = new Cliente(
+                Guid.NewGuid(),
+                "Eduardo",
+                "Pires",
+                DateTime.Now.AddYears(-30),
+                "edu@edu.com",
+                true,
+                DateTime.Now);
+
+            // Act
+            var result = cliente.EhValido();
+
+            // Assert 
+            Assert.True(result);
+            Assert.Equal(0, cliente.ValidationResult.Errors.Count);
+        }
+
+        [Fact(DisplayName = "Novo Cliente Inválido")]
+        [Trait("Categoria", "Cliente Trait Testes")]
+        public void Cliente_NovoCliente_DeveEstarInvalido()
+        {
+            // Arrange
+            var cliente = new Cliente(
+                Guid.NewGuid(),
+                "",
+                "",
+                DateTime.Now,
+                "edu2edu.com",
+                true,
+                DateTime.Now);
+
+            // Act
+            var result = cliente.EhValido();
+
+            // Assert 
+            Assert.False(result);
+            Assert.NotEqual(0, cliente.ValidationResult.Errors.Count);
+        }
+    }
+```
+
+Veja como fica na imagem:
+
+:::image type="content" source="traits.png" alt-text="Visualização do uso do trait":::
+
+   Também é possível "Renomear" o nome do método como foi feito usando **Fact**, ao invés de ficar como nome padrão gerado,
+utilizei outro meio de ficar mais identificavel, exemplo:
+
+:::image type="content" source="Fact.png" alt-text="Uso do Fact para organizar melhor a forma de visualizacao do teste atraves do método":::

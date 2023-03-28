@@ -442,3 +442,39 @@ PM> Install-Package Bogus
 ```
 
 mais informações sobre esse framework [aqui](https://github.com/bchavez/bogus)
+
+### Realizando mock de objetos
+
+Simula um objeto fake para que posso realizar o teste, exemplo:
+
+```dotnetcli
+        [Fact(DisplayName = "Adicionar Cliente com Sucesso")]
+        [Trait("Categoria", "Cliente Service Mock Tests")]
+        public void ClienteService_Adicionar_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var cliente = _clienteTestsBogus.GerarClienteValido();
+            var clienteRepo = new Mock<IClienteRepository>();
+            var mediatr = new Mock<IMediator>();
+
+            var clienteService = new ClienteService(clienteRepo.Object, mediatr.Object);
+
+            // Act
+            clienteService.Adicionar(cliente);
+
+            // Assert
+            Assert.True(cliente.EhValido());
+            clienteRepo.Verify(r => r.Adicionar(cliente),Times.Once);
+            mediatr.Verify(m=>m.Publish(It.IsAny<INotification>(),CancellationToken.None),Times.Once);
+        }
+```
+
+No código Acima, podemos ver a simulação de implementações de objetos, no caso o **IClienteRepository** e o **IMediator**.
+Posso implementar também a classe ao inves da interface, mas para que fique um cenário mais próximo da realidade, foi escolhido as interfaces.
+
+Com o **Mock** podemos usar "métodos" do próprio framework para validar nossos dados ao invés de usar o "Assert", como é o caso do códigos abaixo que também foi mostrado acima:
+
+`clienteRepo.Verify(r => r.Adicionar(cliente),Times.Once);`
+`mediatr.Verify(m=>m.Publish(It.IsAny<INotification>(),CancellationToken.None),Times.Once);`
+
+No caso de ***clienteRepo*** e o ***mediatr*** estou verificando se foi executado pelo menos um vez na entrada do segundo parâmetro, usando o **Times.Once**.

@@ -432,3 +432,13 @@ Consigo ordernar qual teste vai ser executado primeiro atraves de um dos **simps
         }
     }
 ```
+
+### Gerando dados humanos
+
+- Gerador de dados fakes (Resumidamente)
+
+```md
+PM> Install-Package Bogus
+```
+
+mais informações sobre esse framework [aqui](https://github.com/bchavez/bogus)

@@ -478,3 +478,174 @@ Com o **Mock** podemos usar "métodos" do próprio framework para validar nossos
 `mediatr.Verify(m=>m.Publish(It.IsAny<INotification>(),CancellationToken.None),Times.Once);`
 
 No caso de ***clienteRepo*** e o ***mediatr*** estou verificando se foi executado pelo menos um vez na entrada do segundo parâmetro, usando o **Times.Once**.
+
+### AutoMock
+
+Instalação necessária para o **AutoMock**
+
+```md
+PM> Install-Package MOQ.automoc
+```
+
+O Auto Mock cria uma instancia do seu service já realizando o mock das interface implementadas, exemplo:
+
+```dotnetcli
+        [Fact(DisplayName = "Adicionar Cliente com Sucesso")]
+        [Trait("Categoria", "Cliente Service AutoMock Tests")]
+        public void ClienteService_Adicionar_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var cliente = _clienteTestsBogus.GerarClienteValido();
+            var mocker = new AutoMocker();
+            var clienteService = mocker.CreateInstance<ClienteService>();
+
+            // Act
+            clienteService.Adicionar(cliente);
+
+            // Assert
+            Assert.True(cliente.EhValido());
+            mocker.GetMock<IClienteRepository>().Verify(r => r.Adicionar(cliente),Times.Once);
+            mocker.GetMock<IMediator>().Verify(m=>m.Publish(It.IsAny<INotification>(),CancellationToken.None),Times.Once);
+        }
+```
+
+Acima podemos ver que foi instanciado o `new AutoMocker()` em seguida, criamos uma instancia de **ClienteServices** usando o `mocker.CreateInstance<ClienteService>()` que realizou o mock também do **IClienteRepository** e do **IMediator**.
+
+Diferente do caso abaixo, onde tivemos que realizar o mock de **IClienteRepository** e do **IMediator** separadamente.
+
+```dotnetcli
+        [Fact(DisplayName = "Adicionar Cliente com Sucesso")]
+        [Trait("Categoria", "Cliente Service Mock Tests")]
+        public void ClienteService_Adicionar_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var cliente = _clienteTestsBogus.GerarClienteValido();
+            var clienteRepo = new Mock<IClienteRepository>();
+            var mediatr = new Mock<IMediator>();
+
+            var clienteService = new ClienteService(clienteRepo.Object, mediatr.Object);
+
+            // Act
+            clienteService.Adicionar(cliente);
+
+            // Assert
+            Assert.True(cliente.EhValido());
+            clienteRepo.Verify(r => r.Adicionar(cliente),Times.Once);
+            mediatr.Verify(m=>m.Publish(It.IsAny<INotification>(),CancellationToken.None),Times.Once);
+        }
+```
+
+### Utilizando Fluent Assertions
+
+- Mais informações sobre Fluent Assertions [clicando aqui](https://fluentassertions.com/introduction)
+- Repositório no [GitHub](https://github.com/fluentassertions/fluentassertions)
+
+Com o **Fluent Assertion** consigo de deixar meus assert mais expressivos, exemplo:
+
+```dotnetcli
+        [Fact(DisplayName = "Adicionar Cliente com Sucesso")]
+        [Trait("Categoria", "Cliente Service Fluent Assertion Tests")]
+        public void ClienteService_Adicionar_DeveExecutarComSucesso()
+        {
+            // Arrange
+            var cliente = _clienteTestsAutoMockerFixture.GerarClienteValido();
+
+            // Act
+            _clienteService.Adicionar(cliente);
+
+            // Assert
+            //Assert.True(cliente.EhValido());
+
+            // Assert
+            cliente.EhValido().Should().BeTrue();
+
+            _clienteTestsAutoMockerFixture.Mocker.GetMock<IClienteRepository>().Verify(r => r.Adicionar(cliente),Times.Once);
+            _clienteTestsAutoMockerFixture.Mocker.GetMock<IMediator>().Verify(m=>m.Publish(It.IsAny<INotification>(),CancellationToken.None),Times.Once);
+        }
+```
+
+Como pode ver no código acima, em **Assert**, foi retirado o código e foi expressa de uma forma diferente de forma que expresse o mesmo resultado esperado:
+
+- Antes:  `Assert.True(cliente.EhValido());`
+- Depois:  `cliente.EhValido().Should().BeTrue();`
+
+Ambos estão realizando a mesma ação, *esperando que o cliente seja válido retornando "true"*, porém com Assert Fluent expressando isso de uma forma melhor.
+
+### Mensagens de saída nos testes
+
+- Posso pular um teste ao inves de ajusta-lo, usando o parâmetro `Skip`, assim como posso pular e informar o motivo deixando junto no parâmetro a mensagem, exemplo:
+
+```dotnetcli
+    public class TesteNaoPassandoMotivoEspecifico
+    {
+        [Fact(DisplayName = "Novo Cliente 2.0", Skip = "Nova versão 2.0 quebrando")]
+        [Trait("Categoria", "Escapando dos Testes")]
+        public void Teste_NaoEstaPassando_VersaoNovaNaoCompativel()
+        {
+            Assert.True(false);
+        }
+    }
+```
+
+Assim como **Skip** gerar mensagem de *output*, também posso implementar mensagens de saídas (output) para os meus teste executados com sucesso, ao implementar o **ITestOutputHelper**, exemplo:
+
+- Exemplo de implementação da inteface **ITestOutputHelper**
+
+```dotnetcli
+        private readonly ClienteTestsAutoMockerFixture _clienteTestsFixture;
+        readonly ITestOutputHelper _outputHelper;
+
+        public ClienteFluentAssertionsTests(ClienteTestsAutoMockerFixture clienteTestsFixture, 
+                                            ITestOutputHelper outputHelper)
+        {
+            _clienteTestsFixture = clienteTestsFixture;
+            _outputHelper = outputHelper;
+        }
+```
+
+- usando **ITestOutputHelper** para retornar uma mensagem de saída, exemplo:
+
+
+```dotnetcli
+        [Fact(DisplayName = "Novo Cliente Inválido")]
+        [Trait("Categoria", "Cliente Fluent Assertion Testes")]
+        public void Cliente_NovoCliente_DeveEstarInvalido()
+        {
+            // Arrange
+            var cliente = _clienteTestsFixture.GerarClienteInvalido();
+
+            // Act
+            var result = cliente.EhValido();
+
+            // Assert 
+            //Assert.False(result);
+            //Assert.NotEqual(0, cliente.ValidationResult.Errors.Count);
+
+            // Assert 
+            result.Should().BeFalse();
+            cliente.ValidationResult.Errors.Should().HaveCountGreaterOrEqualTo(1, "deve possuir erros de validação");
+
+            _outputHelper.WriteLine($"Foram encontrados {cliente.ValidationResult.Errors.Count} erros nesta validação");
+        }
+```
+
+### Playlist de testes
+
+- Através do visual studio eu consigo adicionar uma playlist de teste conforme os meus critérios, exemplo, teste que tem menos duração ou somente adicionado nessa playlist teste que são relacionado a determinado serviço.
+- Para adicionar, selecione os testes que deseja adicionar a lista e click com o botão direito do mouse, depois click **Add To Playlist**.
+
+### Rodando os teste via linha de comando
+
+- Instalação necessária:
+
+```md
+PM> Install-Package xunit.runner.console
+```
+
+Com isso consigo rodar os teste atravês da **dll dos testes**, usando o comando `dotnet vsteste`, no cenário atual projeto ficaria assim o commando `dotnet vsteste Features.Testes.dll`
+
+Mais informações nas documentações de teste através da linha de comando: [dotnet vstest](https://learn.microsoft.com/dotnet/core/tools/dotnet-vstest)
+
+### Analisando a cobertura de código dos testes
+
+Ferrameta grátis para usar para cobertura de código dos teste: [OpenConver](https://github.com/OpenCover/opencover)

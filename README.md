@@ -3,12 +3,11 @@
 > [!NOTE]
 > Regra 10 de myers: Grafico para ter mais agumentos sobre testes
 
-## Tipos de testes mais comuns
-
-- Teste de unidades
-- Teste de integração
-- Teste de automatização
-- Teste de carga
+- **Tipos de testes mais comuns**
+  - Teste de unidades
+  - Teste de integração
+  - Teste de automatização
+  - Teste de carga
 
 ## Teste de unidade
 
@@ -18,22 +17,22 @@
 - Nunit
 - [XUnit](https://xunit.net/)
 
-## Instalações necessárias
+### Instalações necessárias
 
 ```md
 - install-package xunit
 - install-package unit.runner.visualstudio
 ```
 
-## Padrões e Nomeclaturas
+### Padrões e Nomeclaturas
 
 - Arrange: Gerar objetos, instancias para atuação.
 - Act: Para fazer a chamada do método.
 - Assert: Validar o resultados gerados através do método é valido.
 
-## Nomeclatura de teste de Unidades
+### Nomeclatura de teste de Unidades
 
-### Exemplo de nomeclatura de teste
+Exemplo de nomeclatura de teste:
 
 1. ObjetosEmteste_MetodoComportamentoEmTeste_ComportamentoEsperado
    - Pedido_AdicionarPedidoItem_DeveIncrementarUnidadesSeltemJaExistente
@@ -43,7 +42,7 @@
    - AdicionarPedidoItem_ItemExistenteCaarrinho_DeveIncrementarUnidadesDoItem
    - RetirarEstoque_EstoqueAbaixoDe10Unidades_DeveEnviarEmailDeAviso
 
-## Importância do Mock
+### Importância do Mock
 
 São os objetos criados para testar o comportamentos de outros objetos.
 
@@ -218,7 +217,6 @@ utilizei outro meio de ficar mais identificavel, exemplo:
 ### Fixtures
 
 É um meio de **compartilhar** a mesma instancia entre outras classes, ou seja reutiliza-la para demais classes de testes. Sem necessáriamente recriar a instância a cada execução de testes, posso criar apenas uma vez e reutilizar, como no exemplo abaixo. É implementado uma **ICollectionFixture**  com a minha classe **ClienteTestsFixture** e criado **ClienteCollection** herdando da interface.
-
 
 ```dotnetcli
     [CollectionDefinition(nameof(ClienteCollection))]
@@ -605,7 +603,6 @@ Assim como **Skip** gerar mensagem de *output*, também posso implementar mensag
 
 - usando **ITestOutputHelper** para retornar uma mensagem de saída, exemplo:
 
-
 ```dotnetcli
         [Fact(DisplayName = "Novo Cliente Inválido")]
         [Trait("Categoria", "Cliente Fluent Assertion Testes")]
@@ -649,3 +646,48 @@ Mais informações nas documentações de teste através da linha de comando: [d
 ### Analisando a cobertura de código dos testes
 
 Ferrameta grátis para usar para cobertura de código dos teste: [OpenConver](https://github.com/OpenCover/opencover)
+
+## TDD - Teste Driven Development
+
+**Introdução:** É um pratica de testar um código que não existe
+
+- Ciclo de vida do TDD
+  - Teste passes
+  - Refactor
+  - testFails
+
+- As Três leis do TDD
+  - Você **não pode escrever nenhum código até ter escrito um teste** que detecte uma possível falha.
+  - Você **não pode escrever mais testes de unidade do que o suficiente** para detectar a falha - não compilar é não ter efeito.
+  - Você **não pode escrever mais código do que o suficiente** para passar nos testes.
+
+- Livros que falam sobre o teste de TDD
+  - Test-Driven Development - **Mauricio Aniche**
+  - Test-Driven Development - **Kent Beck**
+  - Growing Object-riented Software, Guided By Tests
+  - Pratical Test-Driven Development using C# 7
+  
+Na primeira vez aplicando o TDD, o primeiro teste é o que tem mais linha de código, pois é o mesmo que vai criar basicamente a estrutura inicial. Depois fica mais fácil aplicação dos demais teste.
+
+### Pedido Adicionar
+
+*Exemplo:*
+
+No código abaixo foi 1º teste criado, seguindo o roteiro que contém as informações que precisamos criar, a medida que foi surgindo a necessidade de desenvolver para ter o resultado do teste, como por exemplo: `Assert.Equal(200,pedido.ValorTotal)` foi surgindo as classes necessária para isso, como a classe Pedido, PedidoItem, o método AdicionarItem e o retorno do **valor total** atravês da classe.
+
+```dotnetcli
+        [Fact(DisplayName = "Adicionar Item Novo Pedido")]
+        [Trait("Categoria", "Vendas - Pedido")]
+        public void AdicionarItemPedido_NovoPedido_DeveAtualizarValor()
+        {
+            // Arrange
+            var pedido = Pedido.PedidoFactory.NovoPedidoRascunho(Guid.NewGuid());
+            var pedidoItem = new PedidoItem(Guid.NewGuid(),"Produto Teste",2,100);
+
+            // Act
+            pedido.AdicionarItem(pedidoItem);
+
+            // Assert
+            Assert.Equal(200,pedido.ValorTotal);
+        }
+```

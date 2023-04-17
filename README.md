@@ -8,7 +8,7 @@
 <br>
 
 | Rank | Tipos de testes |
-|-----:|---------------|
+|:-----|:---------------:|
 |     1|Teste de unidades|
 |     2|Teste de integração|
 |     3|Teste de automatização|

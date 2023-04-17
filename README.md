@@ -2,11 +2,18 @@
 
 > Regra 10 de myers: Grafico para ter mais agumentos sobre testes
 
-- **Tipos de testes mais comuns**
-  - Teste de unidades
-  - Teste de integração
-  - Teste de automatização
-  - Teste de carga
+<details open>
+<summary><strong>Tipos de testes mais comuns</strong></summary>
+<br>
+
+| Rank | Tipos de testes |
+|-----:|---------------|
+|     1|Teste de unidades|
+|     2|Teste de integração|
+|     3|Teste de automatização|
+|     4|Teste de carga|
+
+</details>
 
 ## Teste de unidade
 

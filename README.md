@@ -691,3 +691,93 @@ No código abaixo foi 1º teste criado, seguindo o roteiro que contém as inform
             Assert.Equal(200,pedido.ValorTotal);
         }
 ```
+
+### Pedido - Aplicar voucher
+
+instalação necessária:
+
+```md
+PM> Install-Package fluentvalidation
+```
+
+Exemplo de uso de fluentvalidation, a partir de uma class valida chamada Voucher.
+
+```dotnetcli
+    public class VoucherAplicavelValidation : AbstractValidator<Voucher>
+    {
+        public static string CodigoErroMsg => "Voucher sem código válido.";
+        public static string DataValidadeErroMsg => "Este voucher está expirado.";
+        public static string AtivoErroMsg => "Este voucher não é mais válido.";
+        public static string UtilizadoErroMsg => "Este voucher já foi utilizado.";
+        public static string QuantidadeErroMsg => "Este voucher não está mais disponível";
+        public static string ValorDescontoErroMsg => "O valor do desconto precisa ser superior a 0";
+        public static string PercentualDescontoErroMsg => "O valor da porcentagem de desconto precisa ser superior a 0";
+
+        public VoucherAplicavelValidation()
+        {
+            RuleFor(c => c.Codigo)
+                .NotEmpty()
+                .WithMessage(CodigoErroMsg);
+
+            RuleFor(c => c.DataValidade)
+                .Must(DataVencimentoSuperiorAtual)
+                .WithMessage(DataValidadeErroMsg);
+
+            RuleFor(c => c.Ativo)
+                .Equal(true)
+                .WithMessage(AtivoErroMsg);
+
+            RuleFor(c => c.Utilizado)
+                .Equal(false)
+                .WithMessage(UtilizadoErroMsg);
+
+            RuleFor(c => c.Quantidade)
+                .GreaterThan(0)
+                .WithMessage(QuantidadeErroMsg);
+
+            When(f => f.TipoDescontoVoucher == TipoDescontoVoucher.Valor, () =>
+            {
+                RuleFor(f => f.ValorDesconto)
+                    .NotNull()
+                    .WithMessage(ValorDescontoErroMsg)
+                    .GreaterThan(0)
+                    .WithMessage(ValorDescontoErroMsg);
+            });
+
+            When(f => f.TipoDescontoVoucher == TipoDescontoVoucher.Porcentagem, () =>
+            {
+                RuleFor(f => f.PercentualDesconto)
+                    .NotNull()
+                    .WithMessage(PercentualDescontoErroMsg)
+                    .GreaterThan(0)
+                    .WithMessage(PercentualDescontoErroMsg);
+            });
+        }
+    }
+```
+
+Exemplo de validação de teste usando o fluent validation com erro:
+
+```dotnetcli
+     [Fact(DisplayName = "Validar Voucher Tipo Valor Inválido")]
+        [Trait("Categoria", "Vendas - Voucher")]
+        public void Voucher_ValidarVoucherTipoValor_DeveEstarInvalido()
+        {
+            // Arrange
+            var voucher = new Voucher("", null, null, 0,
+                TipoDescontoVoucher.Valor, DateTime.Now.AddDays(-1), false, true);
+
+            // Act
+            var result = voucher.ValidarSeAplicavel();
+
+            // Assert
+            Assert.False(result.IsValid);
+            Assert.Equal(6, result.Errors.Count);
+            Assert.Contains(VoucherAplicavelValidation.AtivoErroMsg, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherAplicavelValidation.CodigoErroMsg, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherAplicavelValidation.DataValidadeErroMsg, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherAplicavelValidation.QuantidadeErroMsg, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherAplicavelValidation.UtilizadoErroMsg, result.Errors.Select(c => c.ErrorMessage));
+            Assert.Contains(VoucherAplicavelValidation.ValorDescontoErroMsg, result.Errors.Select(c => c.ErrorMessage));
+        }
+```

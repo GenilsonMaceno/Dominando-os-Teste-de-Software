@@ -1,6 +1,5 @@
 # Dominando os Teste de Software
 
-> [!NOTE]
 > Regra 10 de myers: Grafico para ter mais agumentos sobre testes
 
 - **Tipos de testes mais comuns**
@@ -98,16 +97,12 @@ namespace Demo.Tests
     }
 }
 ```
-
-> [!NOTE]
 > **Equal** compara o valor do **resultado** com o valor esperado. Em caso de erro informa na tela o valor retornado em resultado
 
 **Importante:**
 
-> [!NOTE]
 > *[Fact]:* Realiza testes únicos
 
-> [!NOTE]
 > *[Theory]:* Realiza uma sequencia de testes
 
 ### Asserções

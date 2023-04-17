@@ -1,5 +1,6 @@
 # Dominando os Teste de Software
 
+---
 > Regra 10 de myers: Grafico para ter mais agumentos sobre testes
 
 <details open>

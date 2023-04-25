@@ -791,4 +791,23 @@ Exemplo de validação de teste usando o fluent validation com erro:
             Assert.Contains(VoucherAplicavelValidation.ValorDescontoErroMsg, result.Errors.Select(c => c.ErrorMessage));
         }
 ```
+
 ## Teste de integração
+
+**O porque do teste de integração:**  Simula o mundo real de uma página/aplicação, e podemos garantir que de ponta-a-ponta vai funcionar minha aplicação.
+
+Leitura recomendada: [Teste de integração no asp.net core](/aspnet/core/test/integration-tests?view=aspnetcore-3.1)
+
+**TestServer:** Sobe sua aplicação em memoria e dispara requisições, simulando a vida real de uma aplicação no WEB. Mais informações: [TesteServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver?view=aspnetcore-3.1)
+
+**Instalações Necessárias:**
+
+```md
+PM> Install-Package Microsoft.AspNetCore.Mvc.Testing -Version 2.2.0
+```
+
+> Conjunto de pacote que possui referencias importante para testes de integração:
+
+```md
+PM> Install-Package Microsoft.AspNetCore.App -Version 2.2.0
+```

@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Messages\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="fluentvalidation" Version="8.4.0" />
-    <PackageReference Include="Mediatr" Version="7.0.0" />
+    <PackageReference Include="mediatr" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

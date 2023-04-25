@@ -791,3 +791,4 @@ Exemplo de validação de teste usando o fluent validation com erro:
             Assert.Contains(VoucherAplicavelValidation.ValorDescontoErroMsg, result.Errors.Select(c => c.ErrorMessage));
         }
 ```
+## Teste de integração

@@ -806,8 +806,16 @@ Leitura recomendada: [Teste de integração no asp.net core](/aspnet/core/test/i
 PM> Install-Package Microsoft.AspNetCore.Mvc.Testing -Version 2.2.0
 ```
 
-> Conjunto de pacote que possui referencias importante para testes de integração:
+> **Microsoft.AspNetCore.App:** Conjunto de pacote que possui referencias importante para testes de integração:
 
 ```md
 PM> Install-Package Microsoft.AspNetCore.App -Version 2.2.0
 ```
+
+> **AngleSharp:** Recebe um código HTML e estrutura para você de forma que você possa fazer query estruturada e fácil de entender:
+
+```md
+PM> Install-Package AngleSharp
+```
+
+Mais informações sobre **AngleSharp** na documentação [aqui](https://anglesharp.github.io/):

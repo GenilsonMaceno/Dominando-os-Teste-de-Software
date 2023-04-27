@@ -794,6 +794,8 @@ Exemplo de validação de teste usando o fluent validation com erro:
 
 ## Teste de integração
 
+---
+
 **O porque do teste de integração:**  Simula o mundo real de uma página/aplicação, e podemos garantir que de ponta-a-ponta vai funcionar minha aplicação.
 
 Leitura recomendada: [Teste de integração no asp.net core](/aspnet/core/test/integration-tests?view=aspnetcore-3.1)
@@ -818,4 +820,83 @@ PM> Install-Package Microsoft.AspNetCore.App -Version 2.2.0
 PM> Install-Package AngleSharp
 ```
 
-Mais informações sobre **AngleSharp** na documentação [aqui](https://anglesharp.github.io/):
+Mais informações sobre **AngleSharp** na documentação [aqui](https://anglesharp.github.io/)
+
+## BDD - Behavior Driven Development (Desenvolvimento guiado por comportamento)
+
+---
+
+### Sobre o que é?
+
+- Envolve as pessoas no processo através do "desenvolvimento de fora para dentro" (Outside-in development).
+- Escreve estórias para apresentar as necessidades de um usuário e explicar as funcionalidades da aplicação
+- Desenvolver a aplicação guiada por cenários de testes dos comportamentos descritos nas estórias do usuário
+- Escrever testes de integração ou automação para validar os comportamentos como uma bateria de testes de regressão.
+
+### User Stories
+
+Estrutura de uma **User Stories:**
+
+- Como um `<papel do negócio>`
+- Eu quero `<Objetivo do negócio>`
+- Para `<Benefício / Resultado obtido>`
+
+Em inglês
+
+- As a `<papel do negócio>`
+- I want to `<Objetivo do negócio>`
+- So that `<Benefício / Resultado obtido>`
+
+Exemplo real (**User Stories**):
+
+- **Como um** *Cliente*
+- **Eu quero** *colocar um produto no carrinho*
+- **Para** *eu comprá-lo posteriormente*
+
+### User Stories - Cenários
+
+**Estrutura de cenário:**
+
+- **Cenário 1:** *Cenário que a operação dá certo*
+- **Dado que** *o cenário possui um contexto específico*
+- **E** *um outro detalhe adicional*
+- **Quando** *o usuário realizar tal ação*
+- **Então** *algum coisa que dará certo acontecerá*
+
+**Exemplo real de cenário:**
+
+- **Cenário 1:** *Colocar um item disponível no carrinho*
+- **Dado que** *o produto XXX é exibido na vitrine*
+- **E** *possui estoque acima de o informado*
+- **E** *o usuário seleciona uma quantidade igual ou inferior a quantidade de estoque*
+- **Quando** *o usuário clicar em adicionar o item no carrinho*
+- **Então** *o usuário é redirecionado ao resumo do carrinho*
+- **E** *visualiza todos os itens do carrinho*
+
+### Instalações Necessárias
+
+> **specflow:** permite separar a automação de teste das especificações e fornece ferramentas adicionais para estruturar seu código.
+
+- Versão do cucumber para .NET
+- Utilizar o Gherkin parser para transformar o texto em ações
+- Compatível com todas as versões do VS atuais
+
+```md
+PM> Install-Package SpecFlow
+```
+
+> Instalação para reconhecimento do Visual Studio com Xunit para também gerar teste de únidades
+
+```md
+PM> Install-Package SpecFlow.xUnit
+```
+
+> Para processo de MsBuild
+
+```md
+PM> Install-Package SpecFlow.Tools.MsBuild.Generation
+```
+
+Documentação: [SpecFlow](https://specflow.org/benefits/developers-code/)
+
+**OBS:** É necessário também instalar uma extensão no visual studio, em extension e, pesquise por specflow.

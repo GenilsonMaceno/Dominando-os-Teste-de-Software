@@ -956,3 +956,47 @@ PM> Install-Package bogus
   - Código mais limpo
   - Facilidade na manutenção
   - Maior independência dos testes como uma bateria de testes de regressão.
+
+## Testes de Carga
+
+- Tipos de teste
+- Ferramentas de mercado
+- APDEX - Índice de satisfação
+- Como realizar um teste de carga
+
+### Quais são os tipos  de testes disponível e quais os objetivos deles?
+
+- **Teste de carga:** O objetivo principal é encontrar o limite de capacidade da aplicação e identificar qual o gargalo (banco de dados, hardware, cache). Não é objetivo do teste de carga encontrar problemas funcionais na aplicação.
+- **Teste de Stress:** O teste é baseado no disparo de massivas quantidades de requests simultâneos durante alguns minutos. O objetivo é entender o comportamento da aplicação neste tipo de cenário.
+- **Teste de desenpenho:** Realiza o teste de performace, como exemplo simulando mais de 5000 usuários simultânio no seu site.
+
+### Ferramentas
+
+- Azure Devops Load Testing - **Interrompido**
+- Apache JMeter
+- BlazerMeter
+- Gatline
+- AutoCannon
+- WebSurge
+- Locust
+- Artillery.IO
+
+Mais informações sobre **teste de carga Microsoft** [aqui](https://azure.microsoft.com/en-us/products/load-testing/)
+
+### APDEX - Índice de satisfação
+
+- Fórmula do **APDEX**
+
+- **APDEX =** Sastifatório + (toleráveis /2) / Total de quests = 0,xx (Exemplo)
+- **APDEX =** 3.150 + (1.825 /2) / 5.000 = 0,81 (Exemplo)
+
+**APDEX Score:**
+
+| Resultado APDEX | Avaliação |
+|:-----|:---------------:|
+|0.94 até 1.00|Excelente|
+|0.85 até 0.93|Bom|
+|0.70 até 0.84|Aceitável|
+|0.50 até 0.69|Ruim|
+|0.00 até 0.49|Inaceitável|
+

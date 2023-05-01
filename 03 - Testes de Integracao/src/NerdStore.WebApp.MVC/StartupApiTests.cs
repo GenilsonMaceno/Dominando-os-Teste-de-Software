@@ -14,7 +14,6 @@ using Microsoft.IdentityModel.Tokens;
 using NerdStore.Catalogo.Application.AutoMapper;
 using NerdStore.Catalogo.Data;
 using NerdStore.Vendas.Data;
-using NerdStore.WebApp.MVC.Models;
 using NerdStore.WebApp.MVC.Setup;
 
 namespace NerdStore.WebApp.MVC
@@ -88,6 +87,7 @@ namespace NerdStore.WebApp.MVC
             services.RegisterServices();
         }
 
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -114,6 +114,14 @@ namespace NerdStore.WebApp.MVC
                     name: "default",
                     template: "{controller=Vitrine}/{action=Index}/{id?}");
             });
+        }
+
+        public class AppSettings
+        {
+            public string Secret { get; set; }
+            public int ExpiracaoHoras { get; set; }
+            public string Emissor { get; set; }
+            public string ValidoEm { get; set; }
         }
     }
 }

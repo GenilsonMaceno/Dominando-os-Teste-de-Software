@@ -27,7 +27,7 @@ namespace NerdStore.WebApp.MVC.Controllers
 
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly AppSettings _appSettings;
+        private readonly StartupApiTests.AppSettings _appSettings;
 
         public CarrinhoControllerApi(INotificationHandler<DomainNotification> notifications,
                                   IProdutoAppService produtoAppService,
@@ -36,7 +36,7 @@ namespace NerdStore.WebApp.MVC.Controllers
                                   IHttpContextAccessor httpContextAccessor, 
                                   SignInManager<IdentityUser> signInManager, 
                                   UserManager<IdentityUser> userManager,
-                                  IOptions<AppSettings> appSettings) : base(notifications, mediatorHandler, httpContextAccessor)
+                                  IOptions<StartupApiTests.AppSettings> appSettings) : base(notifications, mediatorHandler, httpContextAccessor)
         {
             _produtoAppService = produtoAppService;
             _mediatorHandler = mediatorHandler;

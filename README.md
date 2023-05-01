@@ -939,3 +939,20 @@ PM> Install-Package Microsoft.Extensions.Configuration.Json
 ```md
 PM> Install-Package DotNetSeleniumExtras.WaitHelpers
 ```
+
+> Para gerar dados "Fakes" para testes
+
+```md
+PM> Install-Package bogus
+```
+
+### POM - Page Object Model
+
+- É um padrão de projetos descrito por Martin Fowler.
+- Diz como criar um repositório de objetos com elementos contidos numa página web. Sob este modelo, para cada página, deve haver uma classe correspondente.
+
+- Benefícios:
+  - Reaproveitamento de código
+  - Código mais limpo
+  - Facilidade na manutenção
+  - Maior independência dos testes como uma bateria de testes de regressão.

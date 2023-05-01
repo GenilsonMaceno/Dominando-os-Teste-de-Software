@@ -900,3 +900,42 @@ PM> Install-Package SpecFlow.Tools.MsBuild.Generation
 Documentação: [SpecFlow](https://specflow.org/benefits/developers-code/)
 
 **OBS:** É necessário também instalar uma extensão no visual studio, em extension e, pesquise por specflow.
+
+## Testes automatizados
+
+### Selenium
+
+- Realiza a automação de ações para browsers
+- Utiliza para automatização de testes e Web Crawling
+- Compátivel com visual studio
+
+**Obs:** informaçoes importantes.
+
+- Mais informações sobre o [Selenium aqui](https://www.selenium.dev/)
+- Mais informações sobre o [Web Crawling aqui](https://chromedriver.chromium.org/)
+
+### Instalação necessário
+
+```md
+PM> Install-Package Selenium.WebDriver
+```
+
+> Suporte a algumas configurações:
+
+```md
+PM> Install-Package Selenium.Support
+```
+
+> Para ter no projeto de teste automatizados o IConfiguration
+
+```md
+PM> Install-Package Microsoft.Extensions.Configuration.Json
+```
+
+**Importante:** Em **appsettings.json** clique com o botão direito do mouse, depois clica em properties, em **Copy to output directory**, selecione a opção **copy always**.
+
+> Possui um recursos importante para complementar os teste automatizados:
+
+```md
+PM> Install-Package DotNetSeleniumExtras.WaitHelpers
+```

@@ -999,5 +999,3 @@ Mais informações sobre **teste de carga Microsoft** [aqui](https://azure.micro
 |0.70 até 0.84|Aceitável|
 |0.50 até 0.69|Ruim|
 |0.00 até 0.49|Inaceitável|
-
-# Desenvolvimento De Soluções
